@@ -1,0 +1,15 @@
+{
+  "name": "ascii-to-utf8-converter",
+  "version": "1.0.0",
+  "description": "Converts ASCII text files to UTF8",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Marcelino Jorge Romero Karavia",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "iconv": "^2.2.3"
+  }
+}
