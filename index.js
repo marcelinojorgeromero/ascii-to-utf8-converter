@@ -28,7 +28,10 @@ const validArgNumber = 2;
     let cmdArgs = parseAppArguments();
 
     if (cmdArgs.length < validArgNumber) {
-        log(`${clr.red(' ...2 arguments should be provided... ')} \n${clr.white('1)')} ${clr.green('A file path with text data')} \n${clr.white('2)')} ${clr.green('One of the following ISO character sets')}\n${clr.white.underline('Format:')} ${clr.yellow('npm start <text-file.txt> <ISO-XXXX-X>')} `);
+        log(clr.red(' ...2 arguments should be provided... '));
+        log(`${clr.white('1)')} ${clr.green('A file path with text data')}`);
+        log(`${clr.white('2)')} ${clr.green('One of the following ISO character sets')}`);
+        log(`${clr.white.underline('Format:')} ${clr.yellow('npm start <text-file.txt> <ISO-XXXX-X>')} `);
         printAsciiEncodings();
         process.exit(0);
     }
@@ -43,7 +46,7 @@ const validArgNumber = 2;
     let charset = cmdArgs[1];
 
     try {
-        let binaryTextData = await fs.readFileAsync(cmdArgs[0]);
+        let binaryTextData = await fs.readFileAsync(filename);
         let text = await convertToUtf8FromEncodingAsync(charset, binaryTextData);
 
         let newFilename = generateNameFrom(filename);
@@ -89,7 +92,7 @@ function printAsciiEncodings() {
         { charset: 'ISO-8859-15', description: 'Latin 9 (aka Latin 0)', covers: 'Similar to ISO-8859-1 but replaces some less common symbols with the euro sign and some other missing characters' },
         { charset: 'ISO-2022-JP', description: 'Latin/Japanese part 1', covers: 'The Japanese language' },
         { charset: 'ISO-2022-JP-2', description: 'Latin/Japanese part 2', covers: 'The Japanese language' },
-        { charset: 'ISO-2022-KR', description: '	Latin/Korean part 1', covers: 'The Korean language' }
+        { charset: 'ISO-2022-KR', description: 'Latin/Korean part 1', covers: 'The Korean language' }
     ];
     encodings.forEach(encoding => log(`${clr.blue('Character set:')} ${clr.yellow.bold(encoding.charset)}, ${clr.blue('Description:')} ${clr.cyan(encoding.description)}, ${clr.blue('Covers:')} ${clr.cyan(encoding.covers)}`));
 }
