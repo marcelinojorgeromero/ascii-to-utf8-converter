@@ -12,7 +12,7 @@
             "program": "${workspaceRoot}/index.js",
             "args": [
                 "greek-ascii-subtitles-example.srt",
-                "ISO-8859-7"
+                "auto" //"ISO-8859-7"
             ]
         }
     ]

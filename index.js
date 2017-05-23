@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Iconv = require('iconv').Iconv;
 const clr = require('chalk');
+const chardet = require('chardet'); // Character detection module: http://site.icu-project.org/
 
 fs.readFileAsync = (filename, options) => {
     return new Promise((resolve, reject) => {
@@ -30,9 +31,11 @@ const validArgNumber = 2;
     if (cmdArgs.length < validArgNumber) {
         log(clr.red(' ...2 arguments should be provided... '));
         log(`${clr.white('1)')} ${clr.green('A file path with text data')}`);
-        log(`${clr.white('2)')} ${clr.green('One of the following ISO character sets')}`);
+        log(`${clr.white('2)')} ${clr.green('One of the following ISO character sets or the "auto" parameter for automatic conversion')}`);
         log(`${clr.white.underline('Format:')} ${clr.yellow('npm start <text-file.txt> <ISO-XXXX-X>')} `);
         printAsciiEncodings();
+            log(cmdArgs);
+
         process.exit(0);
     }
     
@@ -44,6 +47,14 @@ const validArgNumber = 2;
     }
 
     let charset = cmdArgs[1];
+    if (charset == 'auto') {
+        try {
+            charset = await detectCharsetAsync(filename);
+        } catch (err) {
+            log(err.message);
+            process.exit(1);
+        }
+    }
 
     try {
         let binaryTextData = await fs.readFileAsync(filename);
@@ -110,4 +121,13 @@ function generateNameFrom(filename) {
 
 function findFileExtension(fileName){
 	return path.extname(fileName);
+}
+
+function detectCharsetAsync(filename) {
+    return new Promise((resolve, reject) => {
+        chardet.detectFile(filename, (err, encoding) => {
+            if (err) reject(err);
+            else resolve(encoding);
+        });
+    });
 }
