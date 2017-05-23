@@ -3,11 +3,11 @@ Sometimes we have text files in ASCII format and applications which do not suppo
 For that reason, I created this small tool which allows converting an ASCII file to UTF8.
 
 To convert a file just type:
-d
+
 `npm start <file.txt> <ISO-XXXX-X>`
 
-If you don't know the ISO character set just typed
+If you don't know the ISO character set just leave blank the arguments
 
 `npm start`
 
-and it print all the available options.
+and it will print all the available options.
