@@ -6,6 +6,10 @@ To convert a file just type:
 
 `npm start <file.txt> <ISO-XXXX-X>`
 
-If you don't know the ISO character set, just leave blank the arguments and it will print all the available options.
+If you don't know the ISO character set you can leave blank the arguments and it will print all the available options for you, or alternatively define "auto" as the second parameter to automatically detect the character set and convert the file.
 
 `npm start`
+
+or
+
+`npm start <file.txt> auto`
